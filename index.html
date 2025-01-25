@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAR FREE GAMES</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>STAR FREE GAMES</h1>
+        <p>Your ultimate destination for fun and excitement!</p>
+    </header>
+    <main>
+        <section id="content">
+            <h2>About Our Website</h2>
+            <p>We provide a variety of exciting games for all age groups. Play, enjoy, and challenge yourself!</p>
+            <div class="games-container" id="games-container">
+                <!-- Games will be dynamically loaded here -->
+                <p id="no-games-message">No games available. Upload some games to get started!</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Contact Us: support@starfreegames.com | All rights reserved © 2025</p>
+    </footer>
+    <script>
+        // Load games from localStorage
+        const games = JSON.parse(localStorage.getItem('games')) || [];
+        const gamesContainer = document.getElementById('games-container');
+        const noGamesMessage = document.getElementById('no-games-message');
+
+        if (games.length > 0) {
+            noGamesMessage.style.display = 'none'; // Hide the "No games available" message
+            games.forEach(game => {
+                const gameElement = document.createElement('div');
+                gameElement.classList.add('game');
+                gameElement.onclick = () => {
+                    window.location.href = `gamev.html?game=${encodeURIComponent(game.link)}`;
+                };
+                gameElement.innerHTML = `
+                    <img src="${game.image}" alt="${game.title}">
+                    <button class="play-button">Play</button>
+                `;
+                gamesContainer.appendChild(gameElement);
+            });
+        }
+    </script>
+</body>
+</html>

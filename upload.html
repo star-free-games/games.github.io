@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Upload Your Game</h1>
+    </header>
+    <main>
+        <form id="upload-form">
+            <label for="game-title">Game Title:</label>
+            <input type="text" id="game-title" name="game-title" required>
+
+            <label for="game-image">Game Image URL:</label>
+            <input type="url" id="game-image" name="game-image" required>
+
+            <label for="game-link">Game Link:</label>
+            <input type="url" id="game-link" name="game-link" required>
+
+            <label for="game-category">Game Category:</label>
+            <input type="text" id="game-category" name="game-category" required>
+
+            <button type="submit">Upload Game</button>
+        </form>
+    </main>
+    <footer>
+        <p>Back to <a href="index.html">Home</a></p>
+    </footer>
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const title = document.getElementById('game-title').value;
+            const image = document.getElementById('game-image').value;
+            const link = document.getElementById('game-link').value;
+            const category = document.getElementById('game-category').value;
+
+            // Create a new game object
+            const newGame = { title, image, link, category };
+
+            // Get existing games from localStorage
+            const games = JSON.parse(localStorage.getItem('games')) || [];
+            games.push(newGame);
+
+            // Save updated games to localStorage
+            localStorage.setItem('games', JSON.stringify(games));
+
+            // Redirect to index.html
+            alert('Game uploaded successfully!');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
